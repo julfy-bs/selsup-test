@@ -1,54 +1,91 @@
-# React + TypeScript + Vite
+# Редактор параметров - Тестовое задание для компании Selsup
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Согласно тестовому заданию, было необходимо реализовать React компоненты, с
+помощью которых можно управлять параметрами Модели.
 
-Currently, two official plugins are available:
+![img.png](src/assets/img.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Функционал
 
-## Expanding the ESLint configuration
+Реализовано:
+- все типы и компоненты необходимые для работы с ТЗ;
+- упразднены некоторые типы, тк небольшой ра}змер проекта позволяет обойтись без них.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+В планах:
+- деструктурировать проект (по ТЗ необходимо было реализовать все компоненты и типы в 1 файле);
+- покрыть тестами;
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Фичи
+- экспорт модели в `.csv` файл;
+- отображение модели в консоли;
+- вся модель удобно отображается в виде таблицы.
+
+
+## Детальное описание тестового задания
+
+Есть следующие структуры данных, описывающих товар – интерфейс Model и набор
+параметров этого товара.
+
+Необходимо реализовать на React компоненты, которые позволяют редактировать
+структуру Model – проставлять значения параметров при этом параметры должны
+выводиться все и сразу должны быть доступны для редактирования, а переданные
+значения в структуре проставлены в форме редактирования, которые передаются в
+params: Param[], а так же позволяют получить полную структуру в методе
+getModel() – содержащую все проставленные значения параметров.
+Решение должно быть легко расширяемым (например, позволять легко добавлять новые
+типы параметров – не только текстовые, но например числовые или со списком
+значений) Ваша реализация должна работать только с текстовыми параметрами
+Input – тип string.
+Решение необходимо оформить в виде одного файла со всеми компонентами и типами
+которые используются.
+
+```ts
+interface Param {
+	id: number;
+	name: string;
+	type: string;
+}
+
+interface ParamValue {
+	paramId: number;
+	value: string;
+}
+
+interface Model {
+	paramValues: ParamValue[];
+	colors: Color[];
+}
+
+interface Props {
+	params: Param[];
+	model: Model;
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+```ts
+// Пример структуры:
+const params = [
+	{
+		"id": 1,
+		"name": "Назначение"
+	},
+	{
+		"id": 2,
+		"name": "Длина"
+	}
+];
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+const model = {
+	"paramValues": [
+		{
+			"paramId": 1,
+			"value": "повседневное"
+		},
+		{
+			"paramId": 2,
+			"value": "макси"
+		}
+	]
+}
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
