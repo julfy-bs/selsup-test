@@ -1,13 +1,19 @@
 {
   "name": "selsup-test",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
+  "homepage": "https://julfy-bs.github.io/selsup-test/",
+  "author": {
+    "name": "Bogdan Sutuzhko",
+    "email": "julfy.web@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@mdi/js": "^7.4.47",
